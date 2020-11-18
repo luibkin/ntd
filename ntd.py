@@ -87,13 +87,109 @@ def one_page (base_answer):
 def answer_help(message):
     ntd.send_message(message.chat.id, "Данный бот предназначен для поиска актуальной информации о состоянии нормативных документов ОСТ. \n <b>Поиск не зависит от регистра вводимых букв и аналогичен поиску по реестру в файле формата .xls(x) (то есть зависит, например, от падежа).</b> \n Основой базы данных для поиска является реестр нормативно-технической документации (тот самый, распространяемый в экселевском файле .xls(x)). <b>Дату составления и другую информацию о реестре всегда можно посмотреть в описании бота в разделе \"Информация\"</>. \n Для поддержания базы НТД в максимально актуальном состоянии новые реестры в формате .xls(x) можно отправлять на электронную почту tntdbot@yandex.ru. \n\n Для повторного вывода данного сообщения введите /start. \n\n Для начала работы введите поисковый запрос, например, \"037-14\" (без кавычек).", parse_mode='HTML')
 
+    info = []
+    if message.from_user.id == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.id)
+    
+    if message.from_user.first_name == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.first_name)
+
+    if message.from_user.username == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.username)
+
+    if message.from_user.last_name == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.last_name)
+
+    if message.date == None:
+        info.append('не указано')
+    else:
+        info.append(message.date)
+    s = f'Пользователь {info[1]} {info[2]} {info[3]} (id{info[0]}) сделал запрос \'/start\', время запроса - {info[4]}.'
+
+    ntd.send_message(403939178, s)
+ 
+
+
 @ntd.message_handler(content_types=['audio', 'photo', 'voice', 'video', 'document', 'location', 'contact', 'sticker'])
 def answer_help(message):
-    ntd.send_message(message.chat.id, "Мне некогда развлекаться, давай по делу!")
+#    print (message)
+    info = []
+    if message.from_user.id == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.id)
+    
+    if message.from_user.first_name == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.first_name)
 
+    if message.from_user.username == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.username)
+
+    if message.from_user.last_name == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.last_name)
+
+    if message.date == None:
+        info.append('не указано')
+    else:
+        info.append(message.date)
+
+    s = f'Пользователь {info[1]} {info[2]} {info[3]} (id{info[0]}) баловался, время запроса - {info[4]}.'
+
+    ntd.send_message(403939178, s)
+ 
+    ntd.send_message(message.chat.id, "Мне некогда развлекаться, давай по делу!")
+#    ntd.send_message(403939178, s)
+ 
 @ntd.message_handler(content_types = ["text"])
 def answer_text(message):
+    info = []
+    if message.from_user.id == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.id)
+    
+    if message.from_user.first_name == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.first_name)
 
+    if message.from_user.username == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.username)
+
+    if message.from_user.last_name == None:
+        info.append('не указано')
+    else:
+        info.append(message.from_user.last_name)
+
+    if message.date == None:
+        info.append('не указано')
+    else:
+        info.append(message.date)
+
+    if message.json['text'] == None:
+        info.append('не указано')
+    else:
+        info.append(message.json['text'])
+
+    s = f'Пользователь {info[1]} {info[2]} {info[3]} (id{info[0]}) сделал запрос \"{info[5]}\", время запроса - {info[4]}.'
+
+    ntd.send_message(403939178, s)
     results_list = search_in_base(message.text)
 
     if len(results_list) == 1:

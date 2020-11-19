@@ -1,6 +1,7 @@
 import config
 import telebot
 import mariadb
+import time
 
 ntd = telebot.TeleBot(config.token)
 
@@ -111,7 +112,9 @@ def answer_help(message):
     if message.date == None:
         info.append('не указано')
     else:
-        info.append(message.date)
+        date_hr = time.gmtime(message.date)
+        date_hr_str = f'{date_hr.tm_hour:02}:{date_hr.tm_min:02}:{date_hr.tm_sec:02} {date_hr.tm_mday:2}.{date_hr.tm_mon:2}.{date_hr.tm_year}г'
+        info.append(date_hr_str)
     s = f'Пользователь {info[1]} {info[2]} {info[3]} (id{info[0]}) сделал запрос \'/start\', время запроса - {info[4]}.'
 
     ntd.send_message(403939178, s)
@@ -145,7 +148,9 @@ def answer_help(message):
     if message.date == None:
         info.append('не указано')
     else:
-        info.append(message.date)
+        date_hr = time.gmtime(message.date)
+        date_hr_str = f'{date_hr.tm_hour:02}:{date_hr.tm_min:02}:{date_hr.tm_sec:02} {date_hr.tm_mday:2}.{date_hr.tm_mon:2}.{date_hr.tm_year}г'
+        info.append(date_hr_str)
 
     s = f'Пользователь {info[1]} {info[2]} {info[3]} (id{info[0]}) баловался, время запроса - {info[4]}.'
 
@@ -180,7 +185,9 @@ def answer_text(message):
     if message.date == None:
         info.append('не указано')
     else:
-        info.append(message.date)
+        date_hr = time.gmtime(message.date)
+        date_hr_str = f'{date_hr.tm_hour:02}:{date_hr.tm_min:02}:{date_hr.tm_sec:02} {date_hr.tm_mday:2}.{date_hr.tm_mon:2}.{date_hr.tm_year}г'
+        info.append(date_hr_str)
 
     if message.json['text'] == None:
         info.append('не указано')
